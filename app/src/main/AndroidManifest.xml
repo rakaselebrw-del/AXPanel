@@ -24,7 +24,7 @@
         <service android:name=".CrosshairOverlayService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="crosshair_overlay" />
         </service>
-        <service android:name=".MonitoringOverlayService" android:enabled="true" android:exported="false":foregroundServiceType="specialUse">
+        <service android:name=".MonitoringOverlayService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="monitoring_overlay" />
         </service>
         <service android:name=".SidePanelService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
