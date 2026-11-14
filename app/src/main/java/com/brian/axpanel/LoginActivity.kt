@@ -11,7 +11,7 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = Button(this).apply {
             text = "MASUK"; setBackgroundColor(Color.parseColor("#00A8E8")); setTextColor(Color.WHITE)
             setOnClickListener {
-                val user = AuthManager.login(etUser.text.toString(), etPass.text.toString())
+                val user = AuthManager.login(this@LoginActivity, etUser.text.toString(), etPass.text.toString())
                 if (user != null) {
                     Toast.makeText(this@LoginActivity, "Selamat datang ${user.username} [${user.role.label}]", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java)); finish()
