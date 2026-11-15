@@ -5,7 +5,7 @@ class AimTrainerActivity : AppCompatActivity() {
     private var hits = 0; private var taps = 0; private var active = false; private var timer: CountDownTimer? = null
     private fun box(bg: String, st: String, r: Float = 24f) = GradientDrawable().apply { setColor(Color.parseColor(bg)); cornerRadius = r; setStroke(2, Color.parseColor(st)) }
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate()
+        super.onCreate(savedInstanceState)
         val prefs = getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
         var best = prefs.getInt("aim_best", 0)
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.parseColor("#0B0709")); setPadding(32, 40, 32, 32) }
