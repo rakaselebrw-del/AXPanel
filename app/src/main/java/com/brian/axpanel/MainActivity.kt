@@ -145,26 +145,7 @@ class MainActivity : AppCompatActivity() {
         })
         card.addView(TextView(this).apply { text = "\nPerangkat: ${Build.MANUFACTURER} ${Build.MODEL}\nAndroid: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\nABI: ${Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown"} | Build: ${Build.ID}"; textSize = 13f; setTextColor(Color.LTGRAY); setPadding(0, 24, 0, 12) })
         layout.addView(card)
-        if (AuthManager.currentUser?.role == UserRole.DEV) {
-            val devCard = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E"); setPadding(32, 28, 32, 28); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) } }
-            devCard.addView(TextView(this).apply { text = "PANEL KHUSUS DEV (KELOLA AKUN)"; textSize = 14f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); setPadding(0, 0, 0, 12) })
-            val tvList = TextView(this).apply { setTextColor(Color.WHITE); textSize = 13f; setPadding(0, 0, 0, 16) }
-            fun refreshList() { tvList.text = AuthManager.getAllAccounts().joinToString("\n") { "• ${it.username} [${it.role.label}]" } }
-            refreshList(); devCard.addView(tvList)
-            val etU = EditText(this).apply { hint = "Username baru"; setTextColor(Color.WHITE); setHintTextColor(Color.GRAY) }
-            val etP = EditText(this).apply { hint = "Password baru"; setTextColor(Color.WHITE); setHintTextColor(Color.GRAY) }
-            val spRole = Spinner(this).apply { adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, UserRole.values().map { it.label }) }
-            devCard.addView(etU); devCard.addView(etP); devCard.addView(spRole)
-            devCard.addView(Button(this).apply {
-                text = "TAMBAH AKUN"; background = box("#E50914", "#FF3B30", 16f); setTextColor(Color.WHITE)
-                setOnClickListener {
-                    val role = UserRole.values()[spRole.selectedItemPosition]
-                    if (AuthManager.addAccount(this@MainActivity, etU.text.toString(), etP.text.toString(), role)) { etU.text.clear(); etP.text.clear(); refreshList(); Toast.makeText(this@MainActivity, "Akun ditambahkan!", Toast.LENGTH_SHORT).show() }
-                    else Toast.makeText(this@MainActivity, "Gagal / Username sudah ada", Toast.LENGTH_SHORT).show()
-                }
-            })
-            layout.addView(devCard)
-        }
+        DevPanelUi.build(this, layout)
         layout.addView(Button(this).apply { text = "LOGOUT"; setTextColor(Color.WHITE); background = box("#241014", "#4A1820", 18f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }; setOnClickListener { AuthManager.logout(); startActivity(Intent(this@MainActivity, LoginActivity::class.java)); finish() } })
         scroll.addView(layout); contentContainer.removeAllViews(); contentContainer.addView(scroll)
     }
