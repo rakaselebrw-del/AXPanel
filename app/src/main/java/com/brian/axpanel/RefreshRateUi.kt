@@ -12,9 +12,10 @@ object RefreshRateUi {
         }
         @Suppress("DEPRECATION") val disp = (ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
         val curHz = disp.refreshRate.toInt()
+        val maxHz = disp.supportedModes.maxOfOrNull { it.refreshRate.toInt() } ?: 120
         val modes = disp.supportedModes.map { it.refreshRate.toInt() }.distinct().sortedDescending().joinToString("Hz, ") + "Hz"
         card.addView(TextView(ctx).apply { text = "REFRESH RATE LOCKER (SHIZUKU)"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); setPadding(0, 0, 0, 6) })
-        card.addView(TextView(ctx).apply { text = "Aktif: ${curHz}Hz • Layar HP Support: $modes"; textSize = 11f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 14) })
+        card.addView(TextView(ctx).apply { text = "Aktif: ${curHz}Hz • Support HP: $modes"; textSize = 11f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 14) })
         fun hzBtn(label: String, bg: String, cmd: String, msg: String) = Button(ctx).apply {
             text = label; textSize = 12f; setTextColor(Color.WHITE); background = box(bg, "#FF3B30", 16f)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 6, 0, 6) }
@@ -23,10 +24,9 @@ object RefreshRateUi {
                 else { Thread { ShizukuHelper.runCommand(cmd) }.start(); Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show() }
             }
         }
-        card.addView(hzBtn("Kunci 144 Hz (Max Hardware)", "#E50914", "settings put system peak_refresh_rate 144.0 && settings put system min_refresh_rate 144.0", "Target 144Hz Diterapkan!"))
-        card.addView(hzBtn("Kunci 120 Hz", "#2A0A10", "settings put system peak_refresh_rate 120.0 && settings put system min_refresh_rate 120.0", "Refresh Rate 120Hz Aktif!"))
-        card.addView(hzBtn("Kunci 90 Hz (Hemat Baterai)", "#2A0A10", "settings put system peak_refresh_rate 90.0 && settings put system min_refresh_rate 90.0", "Refresh Rate 90Hz Aktif!"))
-        card.addView(hzBtn("Reset ke Auto (Default HP)", "#0E0F14", "settings delete system peak_refresh_rate && settings delete system min_refresh_rate", "Refresh Rate kembali ke Auto!"))
+        card.addView(hzBtn("Kunci Max Layar (${maxHz}Hz)", "#E50914", "settings put system peak_refresh_rate ${maxHz}.0 && settings put system min_refresh_rate ${maxHz}.0 && settings put system user_refresh_rate ${maxHz}.0", "Refresh Rate dikunci ke ${maxHz}Hz!"))
+        card.addView(hzBtn("Kunci 90 Hz (Jika Support)", "#2A0A10", "settings put system peak_refresh_rate 90.0 && settings put system min_refresh_rate 90.0 && settings put system user_refresh_rate 90.0", "Target 90Hz Aktif!"))
+        card.addView(hzBtn("Reset ke Auto (Default HP)", "#0E0F14", "settings delete system peak_refresh_rate; settings delete system min_refresh_rate; settings delete system user_refresh_rate", "Refresh Rate kembali ke Auto!"))
         parent.addView(card)
     }
 }
