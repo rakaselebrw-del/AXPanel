@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     private fun box(bg: String, stroke: String, r: Float = 26f) = GradientDrawable().apply { setColor(Color.parseColor(bg)); cornerRadius = r; setStroke(2, Color.parseColor(stroke)) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (AuthManager.currentUser == null) AuthManager.restoreSession(this)
         val user = AuthManager.currentUser ?: run { startActivity(Intent(this, LoginActivity::class.java)); finish(); return }
         Shizuku.addBinderReceivedListener(binderListener); Shizuku.addRequestPermissionResultListener(permListener)
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.parseColor("#0B0709")) }
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         card.addView(TextView(this).apply { text = "\nPerangkat: ${Build.MANUFACTURER} ${Build.MODEL}\nAndroid: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\nABI: ${Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown"} | Build: ${Build.ID}"; textSize = 13f; setTextColor(Color.LTGRAY); setPadding(0, 24, 0, 12) })
         layout.addView(card)
         DevPanelUi.build(this, layout)
-        layout.addView(Button(this).apply { text = "LOGOUT"; setTextColor(Color.WHITE); background = box("#241014", "#4A1820", 18f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }; setOnClickListener { AuthManager.logout(); startActivity(Intent(this@MainActivity, LoginActivity::class.java)); finish() } })
+        layout.addView(Button(this).apply { text = "LOGOUT"; setTextColor(Color.WHITE); background = box("#241014", "#4A1820", 18f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }; setOnClickListener { AuthManager.logout(this@MainActivity); startActivity(Intent(this@MainActivity, LoginActivity::class.java)); finish() } })
         scroll.addView(layout); contentContainer.alpha = 0f; contentContainer.animate().alpha(1f).setDuration(220).start(); contentContainer.removeAllViews(); contentContainer.addView(scroll)
     }
     private fun updateShizukuUI() {

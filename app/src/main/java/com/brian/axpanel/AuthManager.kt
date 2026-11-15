@@ -4,15 +4,11 @@ import java.net.HttpURLConnection; import java.net.URL
 enum class UserRole(val label: String) { DEV("Dev"), OWNER("Owner"), PARTNER("Partner"), VIP("VIP"), RESELLER("Reseller"), MEMBER("Member") }
 data class UserAccount(val username: String, val password: String, val role: UserRole, val hwid: String = "")
 object AuthManager {
-    // Tempel URL Firebase Realtime Database Anda di sini (contoh: "https://ym-panel-default-rtdb.asia-southeast1.firebasedatabase.app")
     const val DB_URL = "https://ym-panel-default-rtdb.asia-southeast1.firebasedatabase.app"
     private val defaultAccounts = listOf(
-        UserAccount("brian", "2011", UserRole.DEV),
-        UserAccount("owner1", "1234", UserRole.OWNER),
-        UserAccount("partner1", "1234", UserRole.PARTNER),
-        UserAccount("vip1", "1234", UserRole.VIP),
-        UserAccount("reseller1", "1234", UserRole.RESELLER),
-        UserAccount("member1", "1234", UserRole.MEMBER)
+        UserAccount("brian", "2011", UserRole.DEV), UserAccount("owner1", "1234", UserRole.OWNER),
+        UserAccount("partner1", "1234", UserRole.PARTNER), UserAccount("vip1", "1234", UserRole.VIP),
+        UserAccount("reseller1", "1234", UserRole.RESELLER), UserAccount("member1", "1234", UserRole.MEMBER)
     )
     private val accounts = defaultAccounts.toMutableList()
     var currentUser: UserAccount? = null; private set
@@ -33,6 +29,19 @@ object AuthManager {
                 if (accounts.none { it.username.equals(p[0], true) }) accounts.add(UserAccount(p[0], p[1], role))
             }
         }
+    }
+    fun restoreSession(ctx: Context): Boolean {
+        init(ctx)
+        val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
+        val u = prefs.getString("session_user", null) ?: return false
+        val p = prefs.getString("session_pass", null) ?: return false
+        val rName = prefs.getString("session_role", "MEMBER") ?: "MEMBER"
+        val role = UserRole.values().find { it.name == rName } ?: UserRole.MEMBER
+        currentUser = UserAccount(u, p, role, getHwid(ctx)); return true
+    }
+    private fun saveSession(ctx: Context, u: String, p: String, r: UserRole) {
+        ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE).edit()
+            .putString("session_user", u).putString("session_pass", p).putString("session_role", r.name).apply()
     }
     fun addAccount(ctx: Context, user: String, pass: String, role: UserRole): Pair<Boolean, String> {
         val u = user.trim().lowercase()
@@ -75,16 +84,20 @@ object AuthManager {
                             }
                             put.outputStream.use { it.write("\"$hwid\"".toByteArray()) }; put.responseCode
                         }
-                        val acc = UserAccount(u, password, role, hwid); currentUser = acc; return acc to "OK"
+                        val acc = UserAccount(u, password, role, hwid); currentUser = acc; saveSession(ctx, u, password, role); return acc to "OK"
                     }
                 }
             } catch (_: Exception) {}
         }
-        val user = accounts.find { it.username.equals(u, true) && it.password == password } ?: return null to "Username/password salah (atau DB_URL belum diisi)!"
+        val user = accounts.find { it.username.equals(u, true) && it.password == password } ?: return null to "Username atau password salah!"
         val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
         val boundHwid = prefs.getString("hwid_$u", null)
         if (user.role != UserRole.DEV && boundHwid != null && boundHwid != hwid) return null to "Akun terkunci di HP lain ($boundHwid)!"
-        prefs.edit().putString("hwid_$u", hwid).apply(); currentUser = user; return user to "OK"
+        prefs.edit().putString("hwid_$u", hwid).apply(); currentUser = user; saveSession(ctx, u, password, user.role); return user to "OK"
     }
-    fun logout() { currentUser = null }
+    fun logout(ctx: Context? = null) {
+        currentUser = null
+        ctx?.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)?.edit()
+            ?.remove("session_user")?.remove("session_pass")?.remove("session_role")?.apply()
+    }
 }

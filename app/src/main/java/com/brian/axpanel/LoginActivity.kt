@@ -5,7 +5,7 @@ class LoginActivity : AppCompatActivity() {
     private fun box(bg: String, stroke: String, r: Float = 28f) = GradientDrawable().apply { setColor(Color.parseColor(bg)); cornerRadius = r; setStroke(2, Color.parseColor(stroke)) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (AuthManager.currentUser != null) { startActivity(Intent(this, MainActivity::class.java)); finish(); return }
+        if (AuthManager.currentUser != null || AuthManager.restoreSession(this)) { startActivity(Intent(this, MainActivity::class.java)); finish(); return }
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setBackgroundColor(Color.parseColor("#0B0709")); setPadding(48, 48, 48, 48) }
         val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER_HORIZONTAL; background = box("#15161E", "#2D181E", 36f); setPadding(48, 56, 48, 56); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT) }
         card.addView(ImageView(this).apply { setImageResource(R.drawable.ym_logo); layoutParams = LinearLayout.LayoutParams(180, 180).apply { setMargins(0, 0, 0, 20) } })
