@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             } })
             layout.addView(card)
         }
-        contentContainer.removeAllViews(); contentContainer.addView(layout)
+        contentContainer.alpha = 0f; contentContainer.animate().alpha(1f).setDuration(220).start(); contentContainer.removeAllViews(); contentContainer.addView(layout)
     }
     private fun showFeatureTab() {
         val scroll = ScrollView(this); val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(36, 24, 36, 24) }
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
             listOf(Color.RED, Color.GREEN, Color.YELLOW, Color.WHITE, Color.CYAN, Color.BLACK).forEach { col -> colorRow.addView(Button(this).apply { setBackgroundColor(col); layoutParams = LinearLayout.LayoutParams(0, 90, 1f).apply { setMargins(8, 0, 8, 0) }; setOnClickListener { CrosshairOverlayService.crosshairColor = col; updateOverlay() } }) }
             c.addView(colorRow); CrosshairStyleUi.build(this, c); layout.addView(c)
         }
-        scroll.addView(layout); contentContainer.removeAllViews(); contentContainer.addView(scroll)
+        scroll.addView(layout); contentContainer.alpha = 0f; contentContainer.animate().alpha(1f).setDuration(220).start(); contentContainer.removeAllViews(); contentContainer.addView(scroll)
     }
     private fun updateOverlay() { if (CrosshairOverlayService.isRunning) startService(Intent(this, CrosshairOverlayService::class.java).apply { action = CrosshairOverlayService.ACTION_UPDATE }) }
     private fun showDeveloperTab() {
@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         layout.addView(card)
         DevPanelUi.build(this, layout)
         layout.addView(Button(this).apply { text = "LOGOUT"; setTextColor(Color.WHITE); background = box("#241014", "#4A1820", 18f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }; setOnClickListener { AuthManager.logout(); startActivity(Intent(this@MainActivity, LoginActivity::class.java)); finish() } })
-        scroll.addView(layout); contentContainer.removeAllViews(); contentContainer.addView(scroll)
+        scroll.addView(layout); contentContainer.alpha = 0f; contentContainer.animate().alpha(1f).setDuration(220).start(); contentContainer.removeAllViews(); contentContainer.addView(scroll)
     }
     private fun updateShizukuUI() {
         if (!::tvShizukuStatus.isInitialized) return
