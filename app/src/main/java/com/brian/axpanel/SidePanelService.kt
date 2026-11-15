@@ -1,10 +1,12 @@
 package com.brian.axpanel
-import android.app.*; import android.content.*; import android.content.pm.ServiceInfo; import android.graphics.*; import android.os.*; import android.view.*; import android.widget.*; import androidx.core.app.NotificationCompat
-import java.text.SimpleDateFormat; import java.util.*
+import android.app.*; import android.content.*; import android.content.pm.ServiceInfo; import android.graphics.*; import android.graphics.drawable.GradientDrawable
+import android.os.*; import android.view.*; import android.widget.*; import androidx.core.app.NotificationCompat
+import java.text.SimpleDateFormat; import java.util.*; import kotlin.math.abs
 class SidePanelService : Service() {
     private lateinit var wm: WindowManager; private lateinit var container: FrameLayout
-    private lateinit var btnLogo: ImageView; private lateinit var hudView: LinearLayout; private lateinit var tvStats: TextView
+    private lateinit var edgeBar: LinearLayout; private lateinit var hudView: LinearLayout; private lateinit var tvStats: TextView
     private lateinit var params: WindowManager.LayoutParams; private val handler = Handler(Looper.getMainLooper())
+    private var savedX = 0; private var savedY = 300
     companion object { var isRunning = false }
     private val statsTask = object : Runnable {
         override fun run() {
@@ -24,25 +26,55 @@ class SidePanelService : Service() {
         super.onCreate(); isRunning = true; startFg()
         wm = getSystemService(WINDOW_SERVICE) as WindowManager
         container = FrameLayout(this)
-        btnLogo = ImageView(this).apply {
-            setImageResource(R.drawable.ym_logo); layoutParams = FrameLayout.LayoutParams(115, 115)
-            setBackgroundColor(Color.parseColor("#CC1A0000")); setPadding(8, 8, 8, 8)
-            setOnClickListener { toggleHud(true) }
+        val barBg = GradientDrawable().apply { setColor(Color.parseColor("#CC140608")); cornerRadius = 18f; setStroke(3, Color.parseColor("#FF1E27")) }
+        edgeBar = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; background = barBg
+            layoutParams = FrameLayout.LayoutParams(28, 150)
+            addView(View(this@SidePanelService).apply {
+                setBackgroundColor(Color.parseColor("#FF2A32"))
+                layoutParams = LinearLayout.LayoutParams(8, 70)
+            })
+        }
+        var sx = 0; var sy = 0; var tx = 0f; var ty = 0f; var moved = false
+        edgeBar.setOnTouchListener { _, ev ->
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> { sx = params.x; sy = params.y; tx = ev.rawX; ty = ev.rawY; moved = false; true }
+                MotionEvent.ACTION_MOVE -> {
+                    val dx = (ev.rawX - tx).toInt(); val dy = (ev.rawY - ty).toInt()
+                    if (abs(dx) > 12 || abs(dy) > 12) moved = true
+                    params.x = sx + dx; params.y = sy + dy; wm.updateViewLayout(container, params); true
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (!moved) toggleHud(true)
+                    else {
+                        val sw = resources.displayMetrics.widthPixels
+                        params.x = if (params.x + 14 < sw / 2) 0 else sw - 28
+                        savedX = params.x; savedY = params.y; wm.updateViewLayout(container, params)
+                    }
+                    true
+                }
+                else -> false
+            }
         }
         val built = SidePanelHud.build(this, { toggleHud(false) }, { stopSelf() }, { m -> handler.post { Toast.makeText(this, m, Toast.LENGTH_SHORT).show() } })
         hudView = built.first; tvStats = built.second; hudView.visibility = View.GONE
-        container.addView(btnLogo); container.addView(hudView)
+        container.addView(edgeBar); container.addView(hudView)
         val type = if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else @Suppress("DEPRECATION") WindowManager.LayoutParams.TYPE_PHONE
         params = WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, type,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, PixelFormat.TRANSLUCENT
-        ).apply { gravity = Gravity.START or Gravity.CENTER_VERTICAL; x = 0; y = 0 }
+        ).apply { gravity = Gravity.TOP or Gravity.START; x = savedX; y = savedY }
         wm.addView(container, params); handler.post(statsTask)
     }
     private fun toggleHud(open: Boolean) {
-        btnLogo.visibility = if (open) View.GONE else View.VISIBLE
+        edgeBar.visibility = if (open) View.GONE else View.VISIBLE
         hudView.visibility = if (open) View.VISIBLE else View.GONE
-        params.gravity = if (open) (Gravity.TOP or Gravity.CENTER_HORIZONTAL) else (Gravity.START or Gravity.CENTER_VERTICAL)
-        params.width = if (open) (resources.displayMetrics.widthPixels * 0.92).toInt() else WindowManager.LayoutParams.WRAP_CONTENT
+        if (open) {
+            params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL; params.x = 0; params.y = 40
+            params.width = (resources.displayMetrics.widthPixels * 0.92).toInt()
+        } else {
+            params.gravity = Gravity.TOP or Gravity.START; params.x = savedX; params.y = savedY
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT
+        }
         wm.updateViewLayout(container, params)
     }
     override fun onDestroy() { super.onDestroy(); isRunning = false; handler.removeCallbacks(statsTask); if (::container.isInitialized) wm.removeView(container) }
