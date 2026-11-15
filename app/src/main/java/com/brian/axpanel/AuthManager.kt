@@ -1,5 +1,5 @@
 package com.brian.axpanel
-import android.content.Context
+import android.content.Context; import android.provider.Settings
 enum class UserRole(val label: String) { DEV("Dev"), OWNER("Owner"), PARTNER("Partner"), VIP("VIP"), RESELLER("Reseller"), MEMBER("Member") }
 data class UserAccount(val username: String, val password: String, val role: UserRole)
 object AuthManager {
@@ -13,6 +13,11 @@ object AuthManager {
     )
     private val accounts = defaultAccounts.toMutableList()
     var currentUser: UserAccount? = null; private set
+    fun getHwid(ctx: Context): String {
+        val raw = Settings.Secure.getString(ctx.contentResolver, Settings.Secure.ANDROID_ID) ?: "00000000"
+        val clean = raw.uppercase().take(8).padEnd(8, '0')
+        return "HP-${clean.substring(0, 4)}-${clean.substring(4, 8)}"
+    }
     fun init(ctx: Context) {
         val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
         val saved = prefs.getStringSet("extra_accounts", emptySet()) ?: emptySet()
@@ -27,19 +32,25 @@ object AuthManager {
     }
     fun addAccount(ctx: Context, user: String, pass: String, role: UserRole): Boolean {
         if (user.isBlank() || pass.isBlank() || accounts.any { it.username.equals(user.trim(), true) }) return false
-        val acc = UserAccount(user.trim(), pass, role)
-        accounts.add(acc)
+        val acc = UserAccount(user.trim(), pass, role); accounts.add(acc)
         val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
         val set = (prefs.getStringSet("extra_accounts", emptySet()) ?: emptySet()).toMutableSet()
         set.add("${acc.username}|${acc.password}|${acc.role.name}")
-        prefs.edit().putStringSet("extra_accounts", set).apply()
-        return true
+        prefs.edit().putStringSet("extra_accounts", set).apply(); return true
     }
     fun getAllAccounts(): List<UserAccount> = accounts
-    fun login(ctx: Context, username: String, password: String): UserAccount? {
+    fun login(ctx: Context, username: String, password: String): Pair<UserAccount?, String> {
         init(ctx)
         val user = accounts.find { it.username.equals(username.trim(), true) && it.password == password }
-        currentUser = user; return user
+            ?: return null to "Username atau password salah!"
+        val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
+        val hwid = getHwid(ctx)
+        val boundHwid = prefs.getString("hwid_${user.username.lowercase()}", null)
+        if (user.role != UserRole.DEV && boundHwid != null && boundHwid != hwid) {
+            return null to "Akun terkunci di HP lain ($boundHwid)!"
+        }
+        prefs.edit().putString("hwid_${user.username.lowercase()}", hwid).apply()
+        currentUser = user; return user to "OK"
     }
     fun logout() { currentUser = null }
 }
