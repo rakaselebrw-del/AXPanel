@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             c2.addView(resBtn("ROG Phone 9 Pro (1080x2400)", "wm size 1080x2400"))
             c2.addView(resBtn("iPhone 17/18 Pro Max (1320x2868)", "wm size 1320x2868"))
             c2.addView(resBtn("Reset Resolusi Default (Aman)", "wm size reset && wm density reset"))
-            layout.addView(c2); LightModeUi.build(this, layout); PhoneModulesUi.build(this, layout); ExtraToolsUi.build(this, layout); SensiSmartUi.build(this, layout); TouchDpiUi.build(this, layout)
+            layout.addView(c2); LightModeUi.build(this, layout); PhoneModulesUi.build(this, layout); ExtraToolsUi.build(this, layout); SensiSmartUi.build(this, layout); TouchDpiUi.build(this, layout); RefreshRateUi.build(this, layout)
             val c3 = cardBox()
             val tvPtr = TextView(this).apply { text = "Pointer Speed Sistem (Shizuku): 0"; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 8) }
             c3.addView(tvPtr)
