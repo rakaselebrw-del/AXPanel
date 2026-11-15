@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         contentContainer = FrameLayout(this).apply { layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) }
         val bottomNav = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setBackgroundColor(Color.parseColor("#13141B")); setPadding(16, 14, 16, 14) }
         fun navBtn(l: String, f: () -> Unit) = Button(this).apply { text = l; textSize = 13f; setTextColor(Color.WHITE); setBackgroundColor(Color.TRANSPARENT); layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f); setOnClickListener { f() } }
-        bottomNav.addView(navBtn("Home") { showHomeTab() }); bottomNav.addView(navBtn("Feature") { showFeatureTab() }); bottomNav.addView(navBtn("Developer") { showDeveloperTab() })
+        ModernNavHelper.setup(this, bottomNav, { showHomeTab() }, { showFeatureTab() }, { showDeveloperTab() })
         root.addView(topBar); root.addView(contentContainer); root.addView(bottomNav); setContentView(root); showHomeTab()
     }
     private fun showHomeTab() {

@@ -10,7 +10,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "6.0-PRO"
+        versionName = "7.0-MODERN"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {
