@@ -27,7 +27,7 @@ object PhoneModulesUi {
             text = "⚡ OPTIMASI ART ENGINE FF & FF MAX (Anti-Stutter)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#2A0A10", "#00D2FF", 16f)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 6, 0, 6) }
             setOnClickListener {
-                if (!ShizukuHelper.hasShizukuPermission()) { Toast.makeText(ctx, "Hubungkan Shizuku dulu!", Toast.LENGTH_SHORT).show(); return@apply }
+                if (!ShizukuHelper.hasShizukuPermission()) { Toast.makeText(ctx, "Hubungkan Shizuku dulu!", Toast.LENGTH_SHORT).show(); return@setOnClickListener }
                 Toast.makeText(ctx, "Mengoptimalkan ART Engine game (tunggu ~10 detik)...", Toast.LENGTH_LONG).show()
                 Thread {
                     ShizukuHelper.runCommand("cmd package compile -m speed-profile com.dts.freefireth; cmd package compile -m speed-profile com.dts.freefiremax")
