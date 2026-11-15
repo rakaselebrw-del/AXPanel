@@ -31,5 +31,6 @@
         <service android:name=".SidePanelService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="side_panel" />
         </service>
+            <service android:name=".TimerOverlayService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse"><property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="timer_overlay" /></service>
     </application>
 </manifest>
