@@ -12,7 +12,7 @@ object FeatureTabsUi {
         val bodyWrap = ScrollView(ctx).apply { layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) }
         val body = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; setPadding(36, 12, 36, 32) }
         bodyWrap.addView(body)
-        val titles = listOf("⚡ Boost", "📱 Layar", "🎯 Overlay", "🎮 Lab & Fun")
+        val titles = listOf("⚡ Boost", "📦 Module Tambahan", "📱 Layar", "🎯 Overlay", "🎮 Lab & Fun")
         val btns = mutableListOf<Button>()
         fun renderBody() {
             body.removeAllViews()
@@ -46,9 +46,10 @@ object FeatureTabsUi {
                             } else { wifiLock?.release(); wifiLock = null; Toast.makeText(ctx, "WiFi Stabilizer Nonaktif", Toast.LENGTH_SHORT).show() }
                         }
                     })
-                    body.addView(c1); PhoneModulesUi.build(ctx, body); ExtraToolsUi.build(ctx, body); TsxModuleUi.build(ctx, body)
+                    body.addView(c1); ExtraToolsUi.build(ctx, body)
                 }
-                1 -> {
+                1 -> { PhoneModulesUi.build(ctx, body); TsxModuleUi.build(ctx, body); CustomScriptUi.build(ctx, body) }
+                2 -> {
                     val c2 = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834"); setPadding(32, 24, 32, 24); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) } }
                     c2.addView(TextView(ctx).apply { text = "RESOLUSI LAYAR (SHIZUKU)"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); setPadding(0, 0, 0, 12) })
                     fun resBtn(l: String, cmd: String) = Button(ctx).apply {
@@ -61,7 +62,7 @@ object FeatureTabsUi {
                     c2.addView(resBtn("Reset Resolusi Default (Aman)", "wm size reset && wm density reset"))
                     body.addView(c2); LightModeUi.build(ctx, body); RefreshRateUi.build(ctx, body); TouchDpiUi.build(ctx, body); SensiSmartUi.build(ctx, body)
                 }
-                2 -> {
+                3 -> {
                     val c = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834"); setPadding(32, 24, 32, 24); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) } }
                     c.addView(overlaySw("Monitoring Performa (RAM/Suhu/Hz)", MonitoringOverlayService.isRunning, MonitoringOverlayService::class.java))
                     c.addView(overlaySw("Crosshair di Game", CrosshairOverlayService.isRunning, CrosshairOverlayService::class.java))
@@ -75,7 +76,7 @@ object FeatureTabsUi {
                     listOf(Color.RED, Color.GREEN, Color.YELLOW, Color.WHITE, Color.CYAN, Color.BLACK).forEach { col -> colorRow.addView(Button(ctx).apply { setBackgroundColor(col); layoutParams = LinearLayout.LayoutParams(0, 86, 1f).apply { setMargins(8, 0, 8, 0) }; setOnClickListener { CrosshairOverlayService.crosshairColor = col; updCrosshair() } }) }
                     c.addView(colorRow); CrosshairStyleUi.build(ctx, c); body.addView(c); FinalFeaturesUi.build(ctx, body)
                 }
-                3 -> { ProGamingToolsUi.build(ctx, body); FunPackUi.build(ctx, body) }
+                4 -> { ProGamingToolsUi.build(ctx, body); FunPackUi.build(ctx, body) }
             }
         }
         titles.forEachIndexed { idx, t ->
