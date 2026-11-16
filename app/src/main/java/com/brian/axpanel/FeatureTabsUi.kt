@@ -46,7 +46,7 @@ object FeatureTabsUi {
                             } else { wifiLock?.release(); wifiLock = null; Toast.makeText(ctx, "WiFi Stabilizer Nonaktif", Toast.LENGTH_SHORT).show() }
                         }
                     })
-                    body.addView(c1); PhoneModulesUi.build(ctx, body); ExtraToolsUi.build(ctx, body)
+                    body.addView(c1); PhoneModulesUi.build(ctx, body); ExtraToolsUi.build(ctx, body); TsxModuleUi.build(ctx, body)
                 }
                 1 -> {
                     val c2 = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834"); setPadding(32, 24, 32, 24); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) } }
