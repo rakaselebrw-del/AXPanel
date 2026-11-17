@@ -55,16 +55,17 @@ object SidePanelHud {
                 onToast(if (ok) "Turbo Boost Aktif!" else "Turbo Boost Gagal!")
             }.start()
         })
-        c3.addView(b("Rekam") { btn ->
+        c3.addView(b("Rekam 20m") { btn ->
             if (!ShizukuHelper.hasShizukuPermission()) { onToast("Hubungkan Shizuku dulu!"); return@b }
             if (!isRec) {
                 isRec = true; btn.text = "Stop Rekam"
-                val f = "/sdcard/Movies/YM_${System.currentTimeMillis()}.mp4"
-                Thread { ShizukuHelper.runCommand("mkdir -p /sdcard/Movies && screenrecord --time-limit 180 $f && am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file://$f") }.start()
-                onToast("Rekam dimulai! (Max 3 menit)")
+                val ts = System.currentTimeMillis()
+                val cmd = "mkdir -p /sdcard/Movies && touch /sdcard/Movies/.ym_rec && i=1; while [ -f /sdcard/Movies/.ym_rec ] && [ ${'$'}i -le 7 ]; do f=/sdcard/Movies/YM_${ts}_part${'$'}i.mp4; screenrecord --time-limit 180 ${'$'}f; am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file://${'$'}f; i=${'$'}((i+1)); done; rm -f /sdcard/Movies/.ym_rec"
+                Thread { ShizukuHelper.runCommand(cmd) }.start()
+                onToast("Rekam dimulai (hingga 21 menit)!")
             } else {
-                isRec = false; btn.text = "Rekam"
-                Thread { ShizukuHelper.runCommand("pkill -2 screenrecord") }.start()
+                isRec = false; btn.text = "Rekam 20m"
+                Thread { ShizukuHelper.runCommand("rm -f /sdcard/Movies/.ym_rec && pkill -2 screenrecord") }.start()
                 onToast("Video disimpan di folder Movies!")
             }
         })
