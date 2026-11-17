@@ -48,7 +48,7 @@ object FeatureTabsUi {
                     })
                     body.addView(c1); ExtraToolsUi.build(ctx, body)
                 }
-                1 -> { PhoneModulesUi.build(ctx, body); TsxModuleUi.build(ctx, body); GoodDataModuleUi.build(ctx, body); CustomScriptUi.build(ctx, body) }
+                1 -> { PhoneModulesUi.build(ctx, body); TsxModuleUi.build(ctx, body); GoodDataModuleUi.build(ctx, body); AngleDriverUi.build(ctx, body); CustomScriptUi.build(ctx, body) }
                 2 -> {
                     val c2 = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834"); setPadding(32, 24, 32, 24); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) } }
                     c2.addView(TextView(ctx).apply { text = "RESOLUSI LAYAR (SHIZUKU)"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); setPadding(0, 0, 0, 12) })
