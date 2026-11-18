@@ -9,7 +9,7 @@ class LoginActivity : AppCompatActivity() {
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setBackgroundColor(Color.parseColor("#0B0709")); setPadding(48, 48, 48, 48) }
         val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER_HORIZONTAL; background = box("#15161E", "#2D181E", 36f); setPadding(48, 56, 48, 56); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT) }
         card.addView(ImageView(this).apply { setImageResource(R.drawable.ym_logo); layoutParams = LinearLayout.LayoutParams(180, 180).apply { setMargins(0, 0, 0, 20) } })
-        card.addView(TextView(this).apply { text = "YM MODIFIER"; textSize = 24f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); gravity = Gravity.CENTER })
+        card.addView(TextView(this).apply { text = "YAN TOOLS"; textSize = 24f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); gravity = Gravity.CENTER })
         card.addView(TextView(this).apply { text = "GAMING UTILITY PANEL • 1 USERNAME 1 HANDPHONE"; textSize = 11f; setTextColor(Color.parseColor("#8E92A4")); gravity = Gravity.CENTER; setPadding(0, 6, 0, 32) })
         val hwidBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#0E0F14", "#262834", 20f); setPadding(28, 20, 28, 20); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 32) } }
         hwidBox.addView(TextView(this).apply { text = "ID HANDPHONE SAAT INI (HWID)"; textSize = 10f; setTextColor(Color.parseColor("#8E92A4")) })

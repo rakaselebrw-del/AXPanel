@@ -81,8 +81,8 @@ class SidePanelService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
     private fun startFg() {
         val ch = "ym_panel_ch"
-        if (Build.VERSION.SDK_INT >= 26) getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel(ch, "YM Game HUD", NotificationManager.IMPORTANCE_LOW))
-        val n = NotificationCompat.Builder(this, ch).setContentTitle("YM Game HUD Aktif").setSmallIcon(android.R.drawable.ic_menu_compass).build()
+        if (Build.VERSION.SDK_INT >= 26) getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel(ch, "Yan Tools HUD", NotificationManager.IMPORTANCE_LOW))
+        val n = NotificationCompat.Builder(this, ch).setContentTitle("Yan Tools HUD Aktif").setSmallIcon(android.R.drawable.ic_menu_compass).build()
         if (Build.VERSION.SDK_INT >= 34) startForeground(3, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE) else startForeground(3, n)
     }
 }

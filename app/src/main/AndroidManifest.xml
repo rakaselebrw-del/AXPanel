@@ -13,7 +13,7 @@
         <package android:name="com.dts.freefireth" />
         <package android:name="com.dts.freefiremax" />
     </queries>
-    <application android:allowBackup="true" android:icon="@drawable/ym_logo" android:label="YM Gaming Panel" android:theme="@style/Theme.Material3.Dark.NoActionBar">
+    <application android:allowBackup="true" android:icon="@drawable/ym_logo" android:label="Yan Tools" android:theme="@style/Theme.Material3.Dark.NoActionBar">
         <activity android:name=".LoginActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

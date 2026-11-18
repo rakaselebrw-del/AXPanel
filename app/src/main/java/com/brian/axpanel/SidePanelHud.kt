@@ -8,7 +8,7 @@ object SidePanelHud {
     fun build(ctx: Context, onCollapse: () -> Unit, onStopAll: () -> Unit, onToast: (String) -> Unit): Pair<LinearLayout, TextView> {
         val hud = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; background = box("#E60D080A", "#FF1E27", 28f); setPadding(24, 16, 24, 16) }
         val top = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL; setPadding(0, 0, 0, 10) }
-        val tvStats = TextView(ctx).apply { text = "YM HUD • --:-- • RAM --%"; textSize = 12f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
+        val tvStats = TextView(ctx).apply { text = "YAN TOOLS • --:-- • RAM --%"; textSize = 12f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
         val btnClose = Button(ctx).apply { text = "X"; textSize = 11f; setTextColor(Color.WHITE); background = box("#D90416", "#FF3B30", 14f); layoutParams = LinearLayout.LayoutParams(80, 70); setOnClickListener { onCollapse() } }
         top.addView(tvStats); top.addView(btnClose); hud.addView(top)
         val grid = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL }
