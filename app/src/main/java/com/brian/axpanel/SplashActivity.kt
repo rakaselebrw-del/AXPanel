@@ -5,7 +5,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setBackgroundColor(Color.parseColor("#080609")); setPadding(48, 48, 48, 48) }
-        val logo = ImageView(this).apply { setImageResource(R.drawable.skeleton_king); layoutParams = LinearLayout.LayoutParams(360, 360); alpha = 0f; scaleX = 0.55f; scaleY = 0.55f }
+        val logo = ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(480, 280); alpha = 0f; scaleX = 0.55f; scaleY = 0.55f }
         val title = TextView(this).apply { text = "YAN DELUXION"; textSize = 27f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")); gravity = Gravity.CENTER; setPadding(0, 28, 0, 8); alpha = 0f; translationY = 36f }
         val sub = TextView(this).apply { text = "ROYAL SKELETON EDITION"; textSize = 11f; setTextColor(Color.parseColor("#FF2A32")); gravity = Gravity.CENTER; alpha = 0f; translationY = 36f }
         root.addView(logo); root.addView(title); root.addView(sub); setContentView(root)

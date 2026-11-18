@@ -7,10 +7,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (AuthManager.currentUser != null || AuthManager.restoreSession(this)) { startActivity(Intent(this, MainActivity::class.java)); finish(); return }
         val wrap = FrameLayout(this).apply { setBackgroundColor(Color.parseColor("#080508")) }
-        wrap.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; alpha = 0.34f; layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT) })
+        wrap.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; alpha = 0.36f; layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT) })
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(48, 48, 48, 48) }
         val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER_HORIZONTAL; background = box("#D9141219", "#D4AF37", 36f); setPadding(48, 52, 48, 52); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT) }
-        card.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(240, 145).apply { setMargins(0, 0, 0, 18) } })
+        card.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(260, 150).apply { setMargins(0, 0, 0, 18) } })
         card.addView(TextView(this).apply { text = "YAN DELUXION"; textSize = 24f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")); gravity = Gravity.CENTER })
         card.addView(TextView(this).apply { text = "ROYAL SKELETON • 1 USERNAME 1 HANDPHONE"; textSize = 11f; setTextColor(Color.parseColor("#FF4D57")); gravity = Gravity.CENTER; setPadding(0, 6, 0, 28) })
         val hwidBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#CC0B0A0F", "#262834", 20f); setPadding(28, 20, 28, 20); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 28) } }
