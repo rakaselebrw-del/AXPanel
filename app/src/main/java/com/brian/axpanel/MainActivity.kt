@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         Shizuku.addBinderReceivedListener(binderListener); Shizuku.addRequestPermissionResultListener(permListener)
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.parseColor("#0B0709")) }
         val topBar = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; background = box("#15161E", "#2D181E", 0f); setPadding(36, 32, 36, 24); gravity = Gravity.CENTER_VERTICAL }
-        topBar.addView(ImageView(this).apply { setImageResource(R.drawable.ym_logo); layoutParams = LinearLayout.LayoutParams(92, 92).apply { setMargins(0, 0, 20, 0) } })
+        topBar.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); layoutParams = LinearLayout.LayoutParams(92, 92).apply { setMargins(0, 0, 20, 0) } })
         val titleCol = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
-        titleCol.addView(TextView(this).apply { text = "YAN TOOLS"; textSize = 16f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")) })
+        titleCol.addView(TextView(this).apply { text = "YAN DELUXION"; textSize = 16f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")) })
         titleCol.addView(TextView(this).apply { text = "${user.username} • ${AuthManager.getHwid(this@MainActivity)}"; textSize = 11f; setTextColor(Color.parseColor("#00D2FF")) })
         topBar.addView(titleCol)
         topBar.addView(TextView(this).apply { text = user.role.label.uppercase(); textSize = 12f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.WHITE); background = box("#E50914", "#FF3B30", 18f); setPadding(28, 12, 28, 12) })
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setBackgroundColor(Color.parseColor("#13141B")); setPadding(16, 14, 16, 14) }
         fun navBtn(l: String, f: () -> Unit) = Button(this).apply { text = l; textSize = 13f; setTextColor(Color.WHITE); setBackgroundColor(Color.TRANSPARENT); layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f); setOnClickListener { f() } }
         ModernNavHelper.setup(this, bottomNav, { showHomeTab() }, { showFeatureTab() }, { showDeveloperTab() })
-        root.addView(topBar); root.addView(contentContainer); root.addView(bottomNav); setContentView(root); showHomeTab()
+        val mid = FrameLayout(this).apply { layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f); addView(ImageView(this@MainActivity).apply { setImageResource(R.drawable.skeleton_king); alpha = 0.14f; scaleType = ImageView.ScaleType.FIT_CENTER }); addView(contentContainer.apply { layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT) }) }; root.addView(topBar); root.addView(mid); root.addView(bottomNav); setContentView(root); showHomeTab()
     }
     private fun showHomeTab() {
         val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(40, 28, 40, 24) }

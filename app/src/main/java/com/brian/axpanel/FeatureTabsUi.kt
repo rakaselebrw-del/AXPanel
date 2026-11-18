@@ -6,7 +6,7 @@ object FeatureTabsUi {
     private var subTab = 0; private var wifiLock: WifiManager.WifiLock? = null
     private fun box(bg: String, st: String, r: Float = 24f) = GradientDrawable().apply { setColor(Color.parseColor(bg)); cornerRadius = r; setStroke(2, Color.parseColor(st)) }
     fun build(ctx: Context): LinearLayout {
-        val root = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.parseColor("#0B0709")) }
+        val root = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.TRANSPARENT) }
         val hScroll = HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; setPadding(28, 20, 28, 12) }
         val tabBar = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL }
         val bodyWrap = ScrollView(ctx).apply { layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) }

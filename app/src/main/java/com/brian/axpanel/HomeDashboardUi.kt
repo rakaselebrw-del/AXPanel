@@ -22,7 +22,7 @@ object HomeDashboardUi {
             orientation = LinearLayout.VERTICAL; background = grad("#CC1D0B12", "#CC0F1017", "#E50914", 36f); setPadding(32, 28, 32, 28)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 24) }
         }
-        hero.addView(TextView(ctx).apply { text = "YM CYBER ENGINE • v9.0"; textSize = 11f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF4D57")) })
+        hero.addView(TextView(ctx).apply { text = "YAN DELUXION ENGINE • v9.0"; textSize = 11f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF4D57")) })
         hero.addView(TextView(ctx).apply { text = "${Build.MANUFACTURER.uppercase()} ${Build.MODEL}"; textSize = 17f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.WHITE); setPadding(0, 4, 0, 16) })
         val gauges = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER; setPadding(0, 4, 0, 16) }
         gauges.addView(CircularGaugeView(ctx, ramPct, "RAM", "$ramPct%", "#00D2FF"))

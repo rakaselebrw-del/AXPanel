@@ -4,7 +4,7 @@ import android.os.*; import android.view.*; import android.widget.*; import andr
 import java.text.SimpleDateFormat; import java.util.*; import kotlin.math.abs
 class SidePanelService : Service() {
     private lateinit var wm: WindowManager; private lateinit var container: FrameLayout
-    private lateinit var edgeBar: LinearLayout; private lateinit var hudView: LinearLayout; private lateinit var tvStats: TextView
+    private lateinit var edgeBar: LinearLayout; private lateinit var hudView: View; private lateinit var tvStats: TextView
     private lateinit var params: WindowManager.LayoutParams; private val handler = Handler(Looper.getMainLooper())
     private var savedX = 0; private var savedY = 300
     companion object { var isRunning = false }
@@ -18,7 +18,7 @@ class SidePanelService : Service() {
             val temp = (bat?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) ?: 0) / 10f
             @Suppress("DEPRECATION") val hz = wm.defaultDisplay.refreshRate.toInt()
             val time = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
-            tvStats.text = "$time  •  RAM $ramPct%  •  ${temp}°C  •  ${hz}Hz"
+            tvStats.text = "YAN DELUXION • $time • RAM $ramPct% • ${temp}°C • ${hz}Hz"
             handler.postDelayed(this, 2000)
         }
     }
@@ -26,14 +26,11 @@ class SidePanelService : Service() {
         super.onCreate(); isRunning = true; startFg()
         wm = getSystemService(WINDOW_SERVICE) as WindowManager
         container = FrameLayout(this)
-        val barBg = GradientDrawable().apply { setColor(Color.parseColor("#CC140608")); cornerRadius = 18f; setStroke(3, Color.parseColor("#FF1E27")) }
+        val barBg = GradientDrawable().apply { setColor(Color.parseColor("#CC14080C")); cornerRadius = 18f; setStroke(3, Color.parseColor("#D4AF37")) }
         edgeBar = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; background = barBg
             layoutParams = FrameLayout.LayoutParams(28, 150)
-            addView(View(this@SidePanelService).apply {
-                setBackgroundColor(Color.parseColor("#FF2A32"))
-                layoutParams = LinearLayout.LayoutParams(8, 70)
-            })
+            addView(View(this@SidePanelService).apply { setBackgroundColor(Color.parseColor("#FF1E27")); layoutParams = LinearLayout.LayoutParams(8, 70) })
         }
         var sx = 0; var sy = 0; var tx = 0f; var ty = 0f; var moved = false
         edgeBar.setOnTouchListener { _, ev ->
@@ -66,23 +63,29 @@ class SidePanelService : Service() {
         wm.addView(container, params); handler.post(statsTask)
     }
     private fun toggleHud(open: Boolean) {
-        edgeBar.visibility = if (open) View.GONE else View.VISIBLE
-        hudView.visibility = if (open) View.VISIBLE else View.GONE
         if (open) {
-            params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL; params.x = 0; params.y = 40
+            edgeBar.visibility = View.GONE; hudView.visibility = View.VISIBLE
+            params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL; params.x = 0; params.y = 36
             params.width = (resources.displayMetrics.widthPixels * 0.92).toInt()
+            wm.updateViewLayout(container, params)
+            hudView.alpha = 0f; hudView.scaleX = 0.82f; hudView.scaleY = 0.82f
+            hudView.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(240).start()
         } else {
-            params.gravity = Gravity.TOP or Gravity.START; params.x = savedX; params.y = savedY
-            params.width = WindowManager.LayoutParams.WRAP_CONTENT
+            hudView.animate().alpha(0f).scaleX(0.85f).scaleY(0.85f).setDuration(170).withEndAction {
+                hudView.visibility = View.GONE; edgeBar.visibility = View.VISIBLE
+                params.gravity = Gravity.TOP or Gravity.START; params.x = savedX; params.y = savedY
+                params.width = WindowManager.LayoutParams.WRAP_CONTENT
+                wm.updateViewLayout(container, params)
+                edgeBar.alpha = 0f; edgeBar.animate().alpha(1f).setDuration(150).start()
+            }.start()
         }
-        wm.updateViewLayout(container, params)
     }
     override fun onDestroy() { super.onDestroy(); isRunning = false; handler.removeCallbacks(statsTask); if (::container.isInitialized) wm.removeView(container) }
     override fun onBind(intent: Intent?): IBinder? = null
     private fun startFg() {
-        val ch = "ym_panel_ch"
-        if (Build.VERSION.SDK_INT >= 26) getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel(ch, "Yan Tools HUD", NotificationManager.IMPORTANCE_LOW))
-        val n = NotificationCompat.Builder(this, ch).setContentTitle("Yan Tools HUD Aktif").setSmallIcon(android.R.drawable.ic_menu_compass).build()
+        val ch = "yan_deluxion_ch"
+        if (Build.VERSION.SDK_INT >= 26) getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel(ch, "Yan Deluxion HUD", NotificationManager.IMPORTANCE_LOW))
+        val n = NotificationCompat.Builder(this, ch).setContentTitle("Yan Deluxion HUD Aktif").setSmallIcon(android.R.drawable.ic_menu_compass).build()
         if (Build.VERSION.SDK_INT >= 34) startForeground(3, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE) else startForeground(3, n)
     }
 }

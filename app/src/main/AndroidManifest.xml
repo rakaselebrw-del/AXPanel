@@ -13,13 +13,14 @@
         <package android:name="com.dts.freefireth" />
         <package android:name="com.dts.freefiremax" />
     </queries>
-    <application android:allowBackup="true" android:icon="@drawable/ym_logo" android:label="Yan Tools" android:theme="@style/Theme.Material3.Dark.NoActionBar">
-        <activity android:name=".LoginActivity" android:exported="true">
+    <application android:allowBackup="true" android:icon="@drawable/skeleton_king" android:label="Yan Deluxion" android:theme="@style/Theme.Material3.Dark.NoActionBar">
+        <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".GamingLabActivity" android:exported="false" />
         <activity android:name=".AimTrainerActivity" android:exported="false" />
@@ -34,6 +35,8 @@
         <service android:name=".SidePanelService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="side_panel" />
         </service>
-            <service android:name=".TimerOverlayService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse"><property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="timer_overlay" /></service>
+        <service android:name=".TimerOverlayService" android:enabled="true" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="timer_overlay" />
+        </service>
     </application>
 </manifest>
