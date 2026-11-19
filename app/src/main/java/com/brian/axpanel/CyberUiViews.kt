@@ -4,7 +4,7 @@ import android.view.View
 class CyberGridView(ctx: Context) : View(ctx) {
     private val p = Paint().apply { color = Color.parseColor("#180C10"); strokeWidth = 2f }
     override fun onDraw(c: Canvas) {
-        super.onDraw(c); c.drawColor(Color.parseColor("#090608"))
+        super.onDraw(c); 
         var x = 0f; while (x < width) { c.drawLine(x, 0f, x, height.toFloat(), p); x += 64f }
         var y = 0f; while (y < height) { c.drawLine(0f, y, width.toFloat(), y, p); y += 64f }
     }

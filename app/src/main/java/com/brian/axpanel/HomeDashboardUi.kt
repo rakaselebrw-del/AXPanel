@@ -67,7 +67,7 @@ object HomeDashboardUi {
                 setPadding(36, 12, 36, 12)
                 setOnClickListener {
                     if (ShizukuHelper.hasShizukuPermission()) Thread { ShizukuHelper.runCommand("cmd power set-fixed-performance-mode-enabled true") }.start()
-                    val i = ctx.packageManager.getLaunchIntentForPackage(pkg); if (i != null) ctx.startActivity(i) else Toast.makeText(ctx, "$t belum terinstal", Toast.LENGTH_SHORT).show()
+                    ctx.startActivity(Intent(ctx, LaunchGameActivity::class.java).putExtra("pkg", pkg).putExtra("name", t))
                 }
             })
             root.addView(card)
