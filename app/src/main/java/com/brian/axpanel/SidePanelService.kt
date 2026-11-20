@@ -66,7 +66,7 @@ class SidePanelService : Service() {
         if (open) {
             edgeBar.visibility = View.GONE; hudView.visibility = View.VISIBLE
             params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL; params.x = 0; params.y = 36
-            params.width = (resources.displayMetrics.widthPixels * 0.92).toInt()
+            val dm = resources.displayMetrics; params.width = (dm.widthPixels * 0.78).toInt().coerceAtMost(1200); params.height = (dm.heightPixels * 0.42).toInt().coerceIn(330, 440)
             wm.updateViewLayout(container, params)
             hudView.alpha = 0f; hudView.scaleX = 0.82f; hudView.scaleY = 0.82f
             hudView.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(240).start()
@@ -74,7 +74,7 @@ class SidePanelService : Service() {
             hudView.animate().alpha(0f).scaleX(0.85f).scaleY(0.85f).setDuration(170).withEndAction {
                 hudView.visibility = View.GONE; edgeBar.visibility = View.VISIBLE
                 params.gravity = Gravity.TOP or Gravity.START; params.x = savedX; params.y = savedY
-                params.width = WindowManager.LayoutParams.WRAP_CONTENT
+                params.width = WindowManager.LayoutParams.WRAP_CONTENT; params.height = WindowManager.LayoutParams.WRAP_CONTENT
                 wm.updateViewLayout(container, params)
                 edgeBar.alpha = 0f; edgeBar.animate().alpha(1f).setDuration(150).start()
             }.start()

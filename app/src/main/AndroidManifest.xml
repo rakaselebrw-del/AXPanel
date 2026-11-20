@@ -23,6 +23,7 @@
         <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".LaunchGameActivity" android:exported="false" />
+        <activity android:name=".PickVideoActivity" android:exported="false" />
         <activity android:name=".GamingLabActivity" android:exported="false" />
         <activity android:name=".AimTrainerActivity" android:exported="false" />
         <activity android:name=".DragPracticeActivity" android:exported="false" />

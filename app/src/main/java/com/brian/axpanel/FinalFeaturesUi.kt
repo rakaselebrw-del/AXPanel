@@ -50,6 +50,6 @@ object FinalFeaturesUi {
             }
         })
         card.addView(TextView(ctx).apply { text = "\nYM Gaming Panel • Versi 5.0 FINAL"; textSize = 11f; setTextColor(Color.parseColor("#8E92A4")) })
-        parent.addView(card)
+        card.addView(Button(ctx).apply { text = "🎬 PILIH VIDEO INTRO MASUK GAME (.MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#2A0A10", "#D4AF37", 16f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 10, 0, 6) }; setOnClickListener { ctx.startActivity(Intent(ctx, PickVideoActivity::class.java)) } }); card.addView(Button(ctx).apply { text = "Pakai Animasi Bawaan (Hapus Video MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#262834", 16f); setOnClickListener { prefs.edit().remove("intro_video_uri").apply(); Toast.makeText(ctx, "Kembali ke Animasi Motion Bawaan!", Toast.LENGTH_SHORT).show() } }); parent.addView(card)
     }
 }
