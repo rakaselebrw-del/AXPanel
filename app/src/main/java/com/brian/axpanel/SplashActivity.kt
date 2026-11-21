@@ -10,7 +10,7 @@ class SplashActivity : AppCompatActivity() {
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(64, 48, 64, 48) }
         val logo = ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(420, 240); alpha = 0f; scaleX = 0.4f; scaleY = 0.4f }
         val title = TextView(this).apply { text = "YAN DELUXION"; textSize = 28f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")); gravity = Gravity.CENTER; setPadding(0, 24, 0, 6); alpha = 0f; translationY = 40f }
-        val sub = TextView(this).apply { text = "ROYAL SKELETON EDITION"; textSize = 11f; setTextColor(Color.parseColor("#FF2A32")); gravity = Gravity.CENTER; setPadding(0, 0, 0, 24); alpha = 0f }
+        val sub = TextView(this).apply { text = "BY BRIAN • ROYAL EDITION"; textSize = 11f; setTextColor(Color.parseColor("#FF2A32")); gravity = Gravity.CENTER; setPadding(0, 0, 0, 24); alpha = 0f }
         val bar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal).apply { max = 100; progress = 0; progressTintList = ColorStateList.valueOf(Color.parseColor("#D4AF37")); progressBackgroundTintList = ColorStateList.valueOf(Color.parseColor("#2A181E")); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT) }
         root.addView(logo); root.addView(title); root.addView(sub); root.addView(bar)
         wrap.addView(bg); wrap.addView(root); setContentView(wrap)
