@@ -7,7 +7,7 @@ object SensiSmartUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#99FF2A32", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         val dpi = ctx.resources.displayMetrics.densityDpi
@@ -51,7 +51,7 @@ object SensiSmartUi {
             }
         })
         card.addView(Button(ctx).apply {
-            text = "Reset Touch Response Normal"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#262834", 16f)
+            text = "Reset Touch Response Normal"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#66D4AF37", 16f)
             setOnClickListener {
                 if (!ShizukuHelper.hasShizukuPermission()) Toast.makeText(ctx, "Hubungkan Shizuku dulu!", Toast.LENGTH_SHORT).show()
                 else { Thread { ShizukuHelper.runCommand("settings put system pointer_speed 0 && settings put secure long_press_timeout 400") }.start(); Toast.makeText(ctx, "Touch Response dikembalikan ke Normal!", Toast.LENGTH_SHORT).show() }

@@ -13,13 +13,13 @@ class LoginActivity : AppCompatActivity() {
         card.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(260, 150).apply { setMargins(0, 0, 0, 18) } })
         card.addView(TextView(this).apply { text = "YAN DELUXION"; textSize = 24f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")); gravity = Gravity.CENTER })
         card.addView(TextView(this).apply { text = "BY BRIAN • 1 USERNAME 1 HANDPHONE"; textSize = 11f; setTextColor(Color.parseColor("#FF4D57")); gravity = Gravity.CENTER; setPadding(0, 6, 0, 28) })
-        val hwidBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#CC0B0A0F", "#262834", 20f); setPadding(28, 20, 28, 20); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 28) } }
+        val hwidBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#CC0B0A0F", "#66D4AF37", 20f); setPadding(28, 20, 28, 20); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 28) } }
         hwidBox.addView(TextView(this).apply { text = "ID HANDPHONE SAAT INI (HWID)"; textSize = 10f; setTextColor(Color.parseColor("#8E92A4")) })
         hwidBox.addView(TextView(this).apply { text = AuthManager.getHwid(this@LoginActivity); textSize = 14f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")) })
         card.addView(hwidBox)
         fun label(t: String) = TextView(this).apply { text = t; textSize = 11f; setTextColor(Color.parseColor("#8E92A4")); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 8, 0, 8) } }
         fun input(h: String, pass: Boolean = false) = EditText(this).apply {
-            hint = h; setTextColor(Color.WHITE); setHintTextColor(Color.parseColor("#5C6070")); background = box("#CC0B0A0F", "#262834", 20f); setPadding(32, 26, 32, 26)
+            hint = h; setTextColor(Color.WHITE); setHintTextColor(Color.parseColor("#5C6070")); background = box("#CC0B0A0F", "#66D4AF37", 20f); setPadding(32, 26, 32, 26)
             if (pass) inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }

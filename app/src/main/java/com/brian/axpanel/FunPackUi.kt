@@ -7,7 +7,7 @@ object FunPackUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#171822", "#2D181E", 28f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC15101A", "#99FF2A32", 28f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         card.addView(TextView(ctx).apply { text = "ENTERTAINMENT & LATIHAN"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 10) })

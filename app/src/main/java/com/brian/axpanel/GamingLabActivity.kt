@@ -19,7 +19,7 @@ class GamingLabActivity : AppCompatActivity() {
         var state = 0; var goTime = 0L; var best = 9999L; val h = Handler(Looper.getMainLooper())
         val tvBest = TextView(this).apply { text = "Rekor Tercepat: - ms"; textSize = 13f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 12) }
         val btnReflex = Button(this).apply {
-            text = "TAP UNTUK MULAI TES REFLEKS"; textSize = 15f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.WHITE); background = box("#15161E", "#FF3B30", 26f)
+            text = "TAP UNTUK MULAI TES REFLEKS"; textSize = 15f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.WHITE); background = box("#CC120E16", "#FF3B30", 26f)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 240).apply { setMargins(0, 0, 0, 24) }
         }
         btnReflex.setOnClickListener {
@@ -28,11 +28,11 @@ class GamingLabActivity : AppCompatActivity() {
                     state = 1; btnReflex.text = "TUNGGU HIJAU..."; btnReflex.background = box("#3A0A12", "#FF3B30", 26f)
                     h.postDelayed({ if (state == 1) { state = 2; goTime = System.currentTimeMillis(); btnReflex.text = "TAP SEKARANG!"; btnReflex.background = box("#00C853", "#00E676", 26f) } }, (1200..3000).random().toLong())
                 }
-                1 -> { state = 0; h.removeCallbacksAndMessages(null); btnReflex.text = "TERLALU CEPAT! TAP ULANG"; btnReflex.background = box("#15161E", "#FF3B30", 26f) }
+                1 -> { state = 0; h.removeCallbacksAndMessages(null); btnReflex.text = "TERLALU CEPAT! TAP ULANG"; btnReflex.background = box("#CC120E16", "#FF3B30", 26f) }
                 2 -> {
                     val ms = System.currentTimeMillis() - goTime; state = 0
                     if (ms < best) { best = ms; tvBest.text = "Rekor Tercepat: $best ms" }
-                    btnReflex.text = "${ms} ms!\n(Tap untuk coba lagi)"; btnReflex.background = box("#15161E", "#00D2FF", 26f)
+                    btnReflex.text = "${ms} ms!\n(Tap untuk coba lagi)"; btnReflex.background = box("#CC120E16", "#00D2FF", 26f)
                 }
             }
         }
@@ -40,7 +40,7 @@ class GamingLabActivity : AppCompatActivity() {
         tvFps = TextView(this).apply { text = "Live Screen FPS: -- fps"; textSize = 14f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00E676")); setPadding(0, 8, 0, 12) }
         root.addView(tvFps)
         root.addView(TextView(this).apply { text = "TES MULTI-TOUCH (Sentuh layar dengan banyak jari):"; textSize = 12f; setTextColor(Color.parseColor("#8E92A4")); setPadding(0, 0, 0, 8) })
-        root.addView(TouchCanvas(this).apply { background = box("#12131A", "#2D181E", 26f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) })
+        root.addView(TouchCanvas(this).apply { background = box("#12131A", "#99FF2A32", 26f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) })
         setContentView(root); lastT = System.currentTimeMillis(); Choreographer.getInstance().postFrameCallback(cb)
     }
     override fun onDestroy() { super.onDestroy(); running = false; Choreographer.getInstance().removeFrameCallback(cb) }

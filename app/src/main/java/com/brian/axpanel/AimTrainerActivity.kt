@@ -12,7 +12,7 @@ class AimTrainerActivity : AppCompatActivity() {
         val tvTop = TextView(this).apply { text = "AIM WARMUP ARENA • Rekor: $best"; textSize = 16f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")) }
         val tvStat = TextView(this).apply { text = "Waktu: 30s  |  Skor: 0  |  Akurasi: 0%"; textSize = 13f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 8, 0, 16) }
         root.addView(tvTop); root.addView(tvStat)
-        val arena = FrameLayout(this).apply { background = box("#12131A", "#2D181E", 28f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) }
+        val arena = FrameLayout(this).apply { background = box("#12131A", "#99FF2A32", 28f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f) }
         val target = View(this).apply {
             background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.parseColor("#E50914")); setStroke(4, Color.WHITE) }
             layoutParams = FrameLayout.LayoutParams(110, 110); visibility = View.GONE
@@ -57,8 +57,8 @@ class AimTrainerActivity : AppCompatActivity() {
             } catch (_: Exception) {}
         }.start()
         btnRow.addView(btnStart)
-        btnRow.addView(Button(this).apply { text = "🎧 L"; setTextColor(Color.WHITE); background = box("#15161E", "#00D2FF", 20f); setOnClickListener { playSide(true) } })
-        btnRow.addView(Button(this).apply { text = "🎧 R"; setTextColor(Color.WHITE); background = box("#15161E", "#00D2FF", 20f); setOnClickListener { playSide(false) } })
+        btnRow.addView(Button(this).apply { text = "🎧 L"; setTextColor(Color.WHITE); background = box("#CC120E16", "#00D2FF", 20f); setOnClickListener { playSide(true) } })
+        btnRow.addView(Button(this).apply { text = "🎧 R"; setTextColor(Color.WHITE); background = box("#CC120E16", "#00D2FF", 20f); setOnClickListener { playSide(false) } })
         root.addView(btnRow); setContentView(root)
     }
     override fun onDestroy() { super.onDestroy(); timer?.cancel() }

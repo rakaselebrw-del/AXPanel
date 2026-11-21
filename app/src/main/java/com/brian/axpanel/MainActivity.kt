@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val user = AuthManager.currentUser ?: run { startActivity(Intent(this, LoginActivity::class.java)); finish(); return }
         Shizuku.addBinderReceivedListener(binderListener); Shizuku.addRequestPermissionResultListener(permListener)
         val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.parseColor("#0B0709")) }
-        val topBar = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; background = box("#15161E", "#2D181E", 0f); setPadding(36, 32, 36, 24); gravity = Gravity.CENTER_VERTICAL }
+        val topBar = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; background = box("#CC120E16", "#99FF2A32", 0f); setPadding(36, 32, 36, 24); gravity = Gravity.CENTER_VERTICAL }
         topBar.addView(ImageView(this).apply { setImageResource(R.drawable.skeleton_king); scaleType = ImageView.ScaleType.CENTER_CROP; layoutParams = LinearLayout.LayoutParams(96, 96).apply { setMargins(0, 0, 20, 0) } })
         val titleCol = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
         titleCol.addView(TextView(this).apply { text = "YAN DELUXION • By Brian"; textSize = 16f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")) })
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private fun showHomeTab() {
         val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(40, 28, 40, 24) }
         listOf("Free Fire" to "com.dts.freefireth", "Free Fire MAX" to "com.dts.freefiremax").forEach { (t, pkg) ->
-            val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E"); setPadding(36, 36, 36, 36); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 24) } }
+            val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#99FF2A32"); setPadding(36, 36, 36, 36); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 24) } }
             card.addView(TextView(this).apply { text = t; textSize = 18f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.WHITE) })
             card.addView(TextView(this).apply { text = pkg; textSize = 12f; setTextColor(Color.parseColor("#8E92A4")); setPadding(0, 4, 0, 20) })
             card.addView(Button(this).apply { text = "BOOST & BUKA GAME"; setTextColor(Color.WHITE); background = box("#E50914", "#FF3B30", 20f); setOnClickListener {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateOverlay() { if (CrosshairOverlayService.isRunning) startService(Intent(this, CrosshairOverlayService::class.java).apply { action = CrosshairOverlayService.ACTION_UPDATE }) }
     private fun showDeveloperTab() {
         val scroll = ScrollView(this); val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(36, 24, 36, 24) }
-        val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834"); setPadding(32, 28, 32, 28) }
+        val card = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#66D4AF37"); setPadding(32, 28, 32, 28) }
         tvShizukuStatus = TextView(this).apply { textSize = 15f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 20) }; updateShizukuUI(); card.addView(tvShizukuStatus)
         card.addView(Button(this).apply {
             text = if (ShizukuHelper.isShizukuInstalled(this@MainActivity)) "HUBUNGKAN / MINTA IZIN SHIZUKU" else "INSTALL SHIZUKU DI PLAY STORE"
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         })
         card.addView(TextView(this).apply { text = "\nPerangkat: ${Build.MANUFACTURER} ${Build.MODEL}\nAndroid: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\nABI: ${Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown"} | Build: ${Build.ID}"; textSize = 13f; setTextColor(Color.LTGRAY); setPadding(0, 24, 0, 12) })
         layout.addView(card)
-        DevSupportCardUi.build(this, layout); DevPanelUi.build(this, layout)
+        UsbDebugCardUi.build(this, layout); DevSupportCardUi.build(this, layout); DevPanelUi.build(this, layout)
         layout.addView(Button(this).apply { text = "LOGOUT"; setTextColor(Color.WHITE); background = box("#241014", "#4A1820", 18f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }; setOnClickListener { AuthManager.logout(this@MainActivity); startActivity(Intent(this@MainActivity, LoginActivity::class.java)); finish() } })
         scroll.addView(layout); contentContainer.alpha = 0f; contentContainer.animate().alpha(1f).setDuration(220).start(); contentContainer.removeAllViews(); contentContainer.addView(scroll)
     }

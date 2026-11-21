@@ -8,7 +8,7 @@ object ExtraToolsUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#66D4AF37", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         card.addView(TextView(ctx).apply { text = "PING TESTER & HARDWARE INFO"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 10) })

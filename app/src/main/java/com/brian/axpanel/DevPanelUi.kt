@@ -9,7 +9,7 @@ object DevPanelUi {
         val allowed = AuthManager.creatableRoles(me.role)
         if (allowed.isEmpty()) return
         val card = LinearLayout(act).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E", 26f); setPadding(32, 28, 32, 28)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#99FF2A32", 26f); setPadding(32, 28, 32, 28)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 24, 0, 0) }
         }
         card.addView(TextView(act).apply { text = "PANEL ${me.role.label.uppercase()} (KELOLA AKUN & HWID)"; textSize = 14f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#FF3B30")); setPadding(0, 0, 0, 12) })

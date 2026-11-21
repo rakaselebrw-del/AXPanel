@@ -12,7 +12,7 @@ class DragPracticeActivity : AppCompatActivity() {
         tvInfo = TextView(this).apply { text = "Ketuk lingkaran MERAH (Kepala) secepat mungkin!"; textSize = 13f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 8, 0, 16) }
         root.addView(tvInfo)
         arena = ArenaView(this).apply {
-            background = GradientDrawable().apply { setColor(Color.parseColor("#12131A")); cornerRadius = 28f; setStroke(2, Color.parseColor("#2D181E")) }
+            background = GradientDrawable().apply { setColor(Color.parseColor("#12131A")); cornerRadius = 28f; setStroke(2, Color.parseColor("#99FF2A32")) }
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f)
         }
         root.addView(arena)

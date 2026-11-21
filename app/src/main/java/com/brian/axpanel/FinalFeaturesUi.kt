@@ -5,7 +5,7 @@ object FinalFeaturesUi {
     private fun box(bg: String, stroke: String, r: Float = 22f) = GradientDrawable().apply { setColor(Color.parseColor(bg)); cornerRadius = r; setStroke(2, Color.parseColor(stroke)) }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#99FF2A32", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         card.addView(TextView(ctx).apply { text = "FITUR FINAL (TIMER & CATATAN HUD)"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 10) })
@@ -21,7 +21,7 @@ object FinalFeaturesUi {
         val prefs = ctx.getSharedPreferences("ax_prefs", Context.MODE_PRIVATE)
         val etNote = EditText(ctx).apply {
             hint = "Simpan kode HUD / catatan sensi di sini..."; setText(prefs.getString("hud_notes", ""))
-            setTextColor(Color.WHITE); setHintTextColor(Color.GRAY); background = box("#0E0F14", "#262834", 16f); setPadding(24, 18, 24, 18)
+            setTextColor(Color.WHITE); setHintTextColor(Color.GRAY); background = box("#0E0F14", "#66D4AF37", 16f); setPadding(24, 18, 24, 18)
         }
         card.addView(etNote)
         val row = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; setPadding(0, 12, 0, 12) }
@@ -40,7 +40,7 @@ object FinalFeaturesUi {
         })
         card.addView(row)
         card.addView(Button(ctx).apply {
-            text = "RESET AMAN SEMUA SETELAN SISTEM"; textSize = 12f; setTextColor(Color.WHITE); background = box("#0E0F14", "#262834", 16f)
+            text = "RESET AMAN SEMUA SETELAN SISTEM"; textSize = 12f; setTextColor(Color.WHITE); background = box("#0E0F14", "#66D4AF37", 16f)
             setOnClickListener {
                 if (!ShizukuHelper.hasShizukuPermission()) Toast.makeText(ctx, "Hubungkan Shizuku dulu!", Toast.LENGTH_SHORT).show()
                 else {
@@ -50,6 +50,6 @@ object FinalFeaturesUi {
             }
         })
         card.addView(TextView(ctx).apply { text = "\nYM Gaming Panel • Versi 5.0 FINAL"; textSize = 11f; setTextColor(Color.parseColor("#8E92A4")) })
-        card.addView(Button(ctx).apply { text = "🎬 PILIH VIDEO INTRO MASUK GAME (.MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#2A0A10", "#D4AF37", 16f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 10, 0, 6) }; setOnClickListener { ctx.startActivity(Intent(ctx, PickVideoActivity::class.java)) } }); card.addView(Button(ctx).apply { text = "Pakai Animasi Bawaan (Hapus Video MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#262834", 16f); setOnClickListener { prefs.edit().remove("intro_video_uri").apply(); Toast.makeText(ctx, "Kembali ke Animasi Motion Bawaan!", Toast.LENGTH_SHORT).show() } }); parent.addView(card)
+        card.addView(Button(ctx).apply { text = "🎬 PILIH VIDEO INTRO MASUK GAME (.MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#2A0A10", "#D4AF37", 16f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 10, 0, 6) }; setOnClickListener { ctx.startActivity(Intent(ctx, PickVideoActivity::class.java)) } }); card.addView(Button(ctx).apply { text = "Pakai Animasi Bawaan (Hapus Video MP4)"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#66D4AF37", 16f); setOnClickListener { prefs.edit().remove("intro_video_uri").apply(); Toast.makeText(ctx, "Kembali ke Animasi Motion Bawaan!", Toast.LENGTH_SHORT).show() } }); parent.addView(card)
     }
 }

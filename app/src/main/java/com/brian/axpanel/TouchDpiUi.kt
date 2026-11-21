@@ -6,7 +6,7 @@ object TouchDpiUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#2D181E", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#99FF2A32", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         val baseDpi = ctx.resources.displayMetrics.densityDpi

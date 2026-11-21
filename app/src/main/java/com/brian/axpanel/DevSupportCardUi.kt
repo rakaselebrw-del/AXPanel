@@ -11,7 +11,7 @@ object DevSupportCardUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#D4AF37", 26f); setPadding(32, 26, 32, 26)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#D4AF37", 26f); setPadding(32, 26, 32, 26)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 22, 0, 0) }
         }
         card.addView(TextView(ctx).apply { text = "DEVELOPER & SUPPORT TEAM"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")) })

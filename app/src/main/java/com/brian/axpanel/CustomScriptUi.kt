@@ -7,14 +7,14 @@ object CustomScriptUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#262834", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#66D4AF37", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         card.addView(TextView(ctx).apply { text = "CUSTOM SCRIPT RUNNER (SHIZUKU)"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 6) })
         card.addView(TextView(ctx).apply { text = "Jalankan file .sh sistem aman yang sudah diekstrak ke memori internal (/sdcard/)."; textSize = 11f; setTextColor(Color.parseColor("#8E92A4")); setPadding(0, 0, 0, 12) })
         val etPath = EditText(ctx).apply {
             setText("/sdcard/GOOD_DATA/run.sh"); hint = "Contoh: /sdcard/NamaFolder/run.sh"
-            setTextColor(Color.WHITE); setHintTextColor(Color.GRAY); background = box("#0E0F14", "#2D181E", 16f); setPadding(24, 18, 24, 18)
+            setTextColor(Color.WHITE); setHintTextColor(Color.GRAY); background = box("#0E0F14", "#99FF2A32", 16f); setPadding(24, 18, 24, 18)
         }
         card.addView(etPath)
         card.addView(Button(ctx).apply {

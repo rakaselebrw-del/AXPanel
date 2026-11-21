@@ -8,7 +8,7 @@ object SorenModuleUi {
     }
     fun build(ctx: Context, parent: LinearLayout) {
         val card = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL; background = box("#15161E", "#D4AF37", 26f); setPadding(32, 24, 32, 24)
+            orientation = LinearLayout.VERTICAL; background = box("#CC120E16", "#D4AF37", 26f); setPadding(32, 24, 32, 24)
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 20) }
         }
         card.addView(TextView(ctx).apply { text = "SOREN HÚSAFELL MODULE"; textSize = 13f; typeface = Typeface.DEFAULT_BOLD; setTextColor(Color.parseColor("#D4AF37")); setPadding(0, 0, 0, 6) })
@@ -16,7 +16,7 @@ object SorenModuleUi {
         val tvStat = TextView(ctx).apply { text = "Status: Siap"; textSize = 11f; setTextColor(Color.parseColor("#00D2FF")); setPadding(0, 0, 0, 6) }
         val bar = ProgressBar(ctx, null, android.R.attr.progressBarStyleHorizontal).apply {
             max = 100; progress = 0; progressTintList = ColorStateList.valueOf(Color.parseColor("#E50914"))
-            progressBackgroundTintList = ColorStateList.valueOf(Color.parseColor("#262834"))
+            progressBackgroundTintList = ColorStateList.valueOf(Color.parseColor("#66D4AF37"))
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 0, 0, 14) }
         }
         card.addView(tvStat); card.addView(bar)
@@ -51,7 +51,7 @@ object SorenModuleUi {
             }
         })
         card.addView(Button(ctx).apply {
-            text = "↺ REVERT ALL SOREN SETTINGS"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#262834", 16f)
+            text = "↺ REVERT ALL SOREN SETTINGS"; textSize = 11f; setTextColor(Color.WHITE); background = box("#0E0F14", "#66D4AF37", 16f)
             setOnClickListener {
                 if (!ShizukuHelper.hasShizukuPermission()) { Toast.makeText(ctx, "Hubungkan Shizuku dulu!", Toast.LENGTH_SHORT).show(); return@setOnClickListener }
                 Thread {

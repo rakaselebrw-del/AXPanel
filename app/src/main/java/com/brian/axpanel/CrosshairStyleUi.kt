@@ -7,7 +7,7 @@ object CrosshairStyleUi {
         fun makeRow(indices: List<Int>): LinearLayout {
             val row = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; setPadding(0, 4, 0, 4) }
             indices.forEach { idx ->
-                val bg = GradientDrawable().apply { setColor(Color.parseColor("#0E0F14")); cornerRadius = 14f; setStroke(2, Color.parseColor("#2D181E")) }
+                val bg = GradientDrawable().apply { setColor(Color.parseColor("#0E0F14")); cornerRadius = 14f; setStroke(2, Color.parseColor("#99FF2A32")) }
                 row.addView(Button(ctx).apply {
                     text = names[idx]; textSize = 11f; setTextColor(Color.WHITE); background = bg
                     layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply { setMargins(6, 0, 6, 0) }
